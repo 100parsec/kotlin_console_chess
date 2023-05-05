@@ -9,12 +9,14 @@ class King(posColumn: Int, posRow: Int, fieldColor: String, pieceColor: String) 
     var fieldWithSymbol = String()
     var name = String()
     var pieceColor = String()
+    var fieldColor = String()
 
     init {
         val cyanField = CyanField(0,0)
         val greyField = GreyField(0,0)
 
         this.pieceColor = pieceColor
+        this.fieldColor = fieldColor
 
         if (fieldColor == "cyan"){
             if (pieceColor == "white"){

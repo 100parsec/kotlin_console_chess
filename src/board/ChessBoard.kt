@@ -6,6 +6,8 @@ import pieces.*
 
 class ChessBoard {
 
+    var board = initialSetup()
+
 
     fun initialSetup(): Array<Array<Pieces?>> {
 
