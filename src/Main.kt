@@ -186,9 +186,9 @@ fun makeMove(indexFrom: Pair<Int, Int>, indexTo: Pair<Int, Int>, board: Array<Ar
     if (check){
 
         if(fieldColor == "cyan"){
-            board[indexFrom.first][indexFrom.second] = CyanField(indexFrom.first, indexFrom.second)
+            board[indexFrom.first][indexFrom.second] = CyanField(indexFrom.first, indexFrom.second, "")
         } else{
-            board[indexFrom.first][indexFrom.second] = GreyField(indexFrom.first, indexFrom.second)
+            board[indexFrom.first][indexFrom.second] = GreyField(indexFrom.first, indexFrom.second, "")
         }
     }
 

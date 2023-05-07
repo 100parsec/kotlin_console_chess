@@ -3,7 +3,7 @@ package fields
 import pieces.Pieces
 import utils.Colors
 
-class CyanField(posColumn: Int, posRow: Int) : Pieces(posColumn, posRow) {
+class CyanField(posColumn: Int, posRow: Int, pieceColor: String) : Pieces(posColumn, posRow, pieceColor) {
 
     var cyanField = String()
     var name = String()

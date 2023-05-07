@@ -4,16 +4,16 @@ import fields.CyanField
 import fields.GreyField
 import utils.Symbols
 
-class Bishop(posColumn: Int, posRow: Int, fieldColor: String, pieceColor: String) : Pieces(posColumn, posRow) {
+class Bishop(posColumn: Int, posRow: Int, fieldColor: String, pieceColor: String) : Pieces(posColumn, posRow, pieceColor) {
 
     var fieldWithSymbol = String()
     var name = String()
-    var pieceColor = String()
+    //var pieceColor = String()
     var fieldColor = String()
 
     init {
-        val cyanField = CyanField(0,0)
-        val greyField = GreyField(0,0)
+        val cyanField = CyanField(0,0, "")
+        val greyField = GreyField(0,0, "")
 
         this.pieceColor = pieceColor
         this.fieldColor = fieldColor
@@ -39,8 +39,8 @@ class Bishop(posColumn: Int, posRow: Int, fieldColor: String, pieceColor: String
 
     fun setNewBackground(color: String){
 
-        val cyanField = CyanField(0,0)
-        val greyField = GreyField(0,0)
+        val cyanField = CyanField(0,0, "")
+        val greyField = GreyField(0,0, "")
 
         if (color == "white"){
             fieldWithSymbol = greyField.setSymbol(Symbols.BISHOP.symbol, this.pieceColor)
