@@ -30,8 +30,8 @@ fun gameMenu() {
 
         var splittedInput = input.split(",")
 
-        var indexFrom = splittedInput[0][1] - '0' - 1 to getFirstIndex(splittedInput[0][0])
-        var indexTo = splittedInput[1][1] - '0' - 1 to getFirstIndex(splittedInput[1][0])
+        var indexFrom = splittedInput[0][1] - '0' - 1 to getSecondIndex(splittedInput[0][0])
+        var indexTo = splittedInput[1][1] - '0' - 1 to getSecondIndex(splittedInput[1][0])
 
         printBoard(makeMove(indexFrom, indexTo, board))
     }
@@ -94,6 +94,8 @@ fun makeMove(indexFrom: Pair<Int, Int>, indexTo: Pair<Int, Int>, board: Array<Ar
     var from = board[indexFrom.first][indexFrom.second]
     var to = board[indexTo.first][indexTo.second]
 
+
+
     var fieldColor = String()
 
     var pawn = Pawn(indexTo.first,indexTo.second,"", "")
@@ -107,15 +109,21 @@ fun makeMove(indexFrom: Pair<Int, Int>, indexTo: Pair<Int, Int>, board: Array<Ar
 
     if(from is Pawn){
 
+        val test = from.isThereAPiece(indexFrom, indexTo, board)
+
         fieldColor = from.fieldColor
 
-        check = from.isMovePossible(indexTo.first, indexTo.second, board, from.pieceColor)
+
+
+        // check is set true if move is possible and there is no piece on the way
+        check = from.isMovePossible(indexTo.first, indexTo.second, board, from.pieceColor) && !from.isThereAPiece(indexFrom, indexTo, board)
 
         if (check){
             to?.let { from.makeMove(from, pawn, it, indexTo, board) }!!
         } else{
             println("Dieser Zug ist nicht möglich")
         }
+
 
     } else if (from is Bishop){
         bishop.pieceColor = from.pieceColor
@@ -186,4 +194,18 @@ fun makeMove(indexFrom: Pair<Int, Int>, indexTo: Pair<Int, Int>, board: Array<Ar
 
 
     return board
+}
+
+private fun getSecondIndex(c: Char): Int {
+    when (c) {
+        'a' -> return 0
+        'b' -> return 1
+        'c' -> return 2
+        'd' -> return 3
+        'e' -> return 4
+        'f' -> return 5
+        'g' -> return 6
+        'h' -> return 7
+    }
+    return 0
 }

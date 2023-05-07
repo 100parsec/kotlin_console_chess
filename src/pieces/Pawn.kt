@@ -72,14 +72,15 @@ class Pawn(posColumn: Int, posRow: Int, fieldColor: String, pieceColor: String) 
      */
     fun isMovePossible(posColumn: Int, posRow: Int, board: Array<Array<Pieces?>>, pieceColor: String): Boolean{
 
-        var check = this.posColumn - posColumn
 
         return if (pieceColor == "white"){
+            var check = this.posColumn - posColumn
             // wenn der bauer auf anfangsposition ist kann er max 2 felder ziehen
             // ist er nicht auf anfangsposition kann er nur 1 feld ziehen
             check(6, check)
 
         } else{
+            var check = posColumn - this.posColumn
             check(1, check)
         }
     }
@@ -95,15 +96,21 @@ class Pawn(posColumn: Int, posRow: Int, fieldColor: String, pieceColor: String) 
      */
     fun makeMove(from: Pawn, pawn: Pawn, to: Pieces, indexTo: Pair<Int, Int>, board: Array<Array<Pieces?>>){
         pawn.pieceColor = from.pieceColor
-        fieldColor = from.fieldColor
 
-        if (to is CyanField){
-            pawn.setNewBackground("cyan")
-            board[indexTo.first][indexTo.second] = pawn
-        } else{
-            pawn.setNewBackground("white")
-            board[indexTo.first][indexTo.second] = pawn
+        pawn.fieldColor = targetColor(to)
+
+        when(to){
+            is CyanField -> pawn.setNewBackground("cyan")
+            is GreyField -> pawn.setNewBackground("white")
+            is Pawn -> pawn.setNewBackground(to.fieldColor)
+            is Rook -> pawn.setNewBackground(to.fieldColor)
+            is Knight -> pawn.setNewBackground(to.fieldColor)
+            is Queen -> pawn.setNewBackground(to.fieldColor)
+            is King -> pawn.setNewBackground(to.fieldColor)
         }
+
+
+        board[indexTo.first][indexTo.second] = pawn
     }
 
     /*
@@ -120,5 +127,19 @@ class Pawn(posColumn: Int, posRow: Int, fieldColor: String, pieceColor: String) 
             check == 1
         }
 
+    }
+
+    private fun targetColor(target: Pieces): String{
+
+        return when(target){
+            is Pawn -> target.fieldColor
+            is Rook -> target.fieldColor
+            is Knight -> target.fieldColor
+            is Bishop -> target.fieldColor
+            is Queen -> target.fieldColor
+            is King -> target.fieldColor
+            is CyanField -> "cyan"
+            else -> "white"
+        }
     }
 }
