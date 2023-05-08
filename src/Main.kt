@@ -3,7 +3,8 @@ import fields.CyanField
 import fields.GreyField
 import pieces.*
 
-val whoseMove = "white"
+var whoseMove = "white"
+var globalBoard: Array<Array<Pieces?>> = arrayOf(arrayOf(Pieces(0,0,"")))
 fun main() {
 
     printLogo()
@@ -19,23 +20,77 @@ fun gameMenu() {
 
     while (!check) {
 
-        if (whoseMove == "white") {
-            println("Weiss ist am Zug.")
-        } else{
-            println("Schwarz ist am Zug.")
+        var indexFrom = Pair<Int, Int>(0,0)
+        var indexTo = Pair<Int, Int>(0,0)
+
+        var move = false
+        while (!move) {
+
+            if (whoseMove == "white") {
+                println("Weiss ist am Zug.")
+                print("Welchen Zug wollen Sie machen?: ")
+                val input = readln()
+
+                var splittedInput = input.split(",")
+
+                indexFrom = splittedInput[0][1] - '0' - 1 to getSecondIndex(splittedInput[0][0])
+                indexTo = splittedInput[1][1] - '0' - 1 to getSecondIndex(splittedInput[1][0])
+                printBoard(makeMove(indexFrom, indexTo, board))
+
+            } else {
+                println("Schwarz ist am Zug.")
+                print("Welchen Zug wollen Sie machen?: ")
+                val input = readln()
+
+                var splittedInput = input.split(",")
+
+                indexFrom = splittedInput[0][1] - '0' - 1 to getSecondIndex(splittedInput[0][0])
+                indexTo = splittedInput[1][1] - '0' - 1 to getSecondIndex(splittedInput[1][0])
+                printBoard(makeMove(indexFrom, indexTo, board))
+            }
+
+            /*
+            print("Welchen Zug wollen Sie machen?: ")
+            val input = readln()
+
+            var splittedInput = input.split(",")
+
+            indexFrom = splittedInput[0][1] - '0' - 1 to getSecondIndex(splittedInput[0][0])
+            indexTo = splittedInput[1][1] - '0' - 1 to getSecondIndex(splittedInput[1][0])
+
+             */
+
+            move = whosMove(whoseMove,indexTo)
         }
 
-        print("Welchen Zug wollen Sie machen?: ")
-        val input = readln()
 
-        var splittedInput = input.split(",")
 
-        var indexFrom = splittedInput[0][1] - '0' - 1 to getSecondIndex(splittedInput[0][0])
-        var indexTo = splittedInput[1][1] - '0' - 1 to getSecondIndex(splittedInput[1][0])
+        if (move){
+           // printBoard(makeMove(indexFrom, indexTo, board))
+            whoseMove = if (whoseMove == "white"){
+                "black"
+            } else{
+                "white"
+            }
+        }
 
-        printBoard(makeMove(indexFrom, indexTo, board))
     }
+}
 
+fun whosMove(whosMove: String, indexFrom:  Pair<Int, Int>): Boolean{
+    val piece = globalBoard[indexFrom.first][indexFrom.second]
+
+    if(whosMove == "white"){
+        if(piece!!.pieceColor == "black"){
+            return false
+        }
+        return true
+    } else{
+        if (piece!!.pieceColor == "white"){
+            return false
+        }
+        return true
+    }
 }
 
 
@@ -86,6 +141,7 @@ fun printBoard(board: Array<Array<Pieces?>>){
         }
 
     }
+    globalBoard = board
 }
 
 fun makeMove(indexFrom: Pair<Int, Int>, indexTo: Pair<Int, Int>, board: Array<Array<Pieces?>>):  Array<Array<Pieces?>>{
@@ -181,6 +237,8 @@ fun makeMove(indexFrom: Pair<Int, Int>, indexTo: Pair<Int, Int>, board: Array<Ar
             queen.setNewBackground("white")
             board[indexTo.first][indexTo.second] = rook
         }
+
+        globalBoard = board
     }
 
     if (check){

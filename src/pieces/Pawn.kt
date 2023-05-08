@@ -72,17 +72,34 @@ class Pawn(posColumn: Int, posRow: Int, fieldColor: String, pieceColor: String) 
      */
     fun isMovePossible(posColumn: Int, posRow: Int, board: Array<Array<Pieces?>>, pieceColor: String): Boolean{
 
+        val targetPiece = board[posColumn][posRow]
 
         return if (pieceColor == "white"){
             var check = this.posColumn - posColumn
             // wenn der bauer auf anfangsposition ist kann er max 2 felder ziehen
             // ist er nicht auf anfangsposition kann er nur 1 feld ziehen
+
+            /*
+            if (targetPiece!!.pieceColor != "black"){
+                return false
+            }
+
+             */
             check(6, check)
 
         } else{
             var check = posColumn - this.posColumn
+
+            /*
+            if (targetPiece!!.pieceColor != "white"){
+                return false
+            }
+
+             */
+
             check(1, check)
         }
+
     }
 
     /*

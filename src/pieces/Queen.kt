@@ -8,7 +8,6 @@ class Queen(posColumn: Int, posRow: Int, fieldColor: String, pieceColor: String)
 
     var fieldWithSymbol = String()
     var name = String()
-    //var pieceColor = String()
     var fieldColor = String()
 
     init {
