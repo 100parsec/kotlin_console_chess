@@ -174,6 +174,23 @@ fun makeMove(indexFrom: Pair<Int, Int>, indexTo: Pair<Int, Int>, board: Array<Ar
          */
 
     } else if (from is King){
+
+        fieldColor = from.fieldColor
+
+        // check is set true if move is possible and there is no piece on the way
+        val check1 = from.isMovePossible(indexTo.first, indexTo.second, board, from.pieceColor)
+        val check2 = from.isThereAPiece(indexFrom, indexTo, board)
+
+        check = from.isMovePossible(indexTo.first, indexTo.second, board, from.pieceColor) && !from.isThereAPiece(indexFrom, indexTo, board)
+
+        if (check){
+            to?.let { from.makeMove(from, king, it, indexTo, board) }!!
+        } else{
+            println("Dieser Zug ist nicht möglich")
+        }
+
+
+        /*
         king.pieceColor = from.pieceColor
         fieldColor = from.fieldColor
 
@@ -184,6 +201,8 @@ fun makeMove(indexFrom: Pair<Int, Int>, indexTo: Pair<Int, Int>, board: Array<Ar
             king.setNewBackground("white")
             board[indexTo.first][indexTo.second] = king
         }
+
+         */
     } else if (from is Knight){
         knight.pieceColor = from.pieceColor
         fieldColor = from.fieldColor
@@ -209,9 +228,6 @@ fun makeMove(indexFrom: Pair<Int, Int>, indexTo: Pair<Int, Int>, board: Array<Ar
     } else if (from is Rook){
 
         fieldColor = from.fieldColor
-
-        val check1 = from.isMovePossible(indexTo.first, indexTo.second, board, from.pieceColor)
-        val check2 = from.isThereAPiece(indexFrom, indexTo, board)
 
         check = from.isMovePossible(indexTo.first, indexTo.second, board, from.pieceColor) && !from.isThereAPiece(indexFrom, indexTo, board)
 
