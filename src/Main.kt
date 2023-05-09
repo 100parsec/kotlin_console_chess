@@ -208,23 +208,10 @@ fun makeMove(indexFrom: Pair<Int, Int>, indexTo: Pair<Int, Int>, board: Array<Ar
         }
     } else if (from is Rook){
 
-        /*
         fieldColor = from.fieldColor
 
-        // check is set true if move is possible and there is no piece on the way
-        check = from.isMovePossible(indexTo.first, indexTo.second, board, from.pieceColor) && !from.isThereAPiece(indexFrom, indexTo, board)
-
-        if (check){
-            to?.let { from.makeMove(from, pawn, it, indexTo, board) }!!
-        } else{
-            println("Dieser Zug ist nicht möglich")
-        }
-         */
-
-        fieldColor = from.fieldColor
-
-        //check = from.isMovePossible(indexTo.first, indexTo.second, board, from.pieceColor)
-        //check = from.isThereAPiece(indexFrom, indexTo, board)
+        val check1 = from.isMovePossible(indexTo.first, indexTo.second, board, from.pieceColor)
+        val check2 = from.isThereAPiece(indexFrom, indexTo, board)
 
         check = from.isMovePossible(indexTo.first, indexTo.second, board, from.pieceColor) && !from.isThereAPiece(indexFrom, indexTo, board)
 

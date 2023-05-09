@@ -16,7 +16,8 @@ open class Pieces(var posColumn: Int, var posRow: Int,var pieceColor: String) {
                     } else if(board[i][indexFrom.second] is GreyField){
                         check = false
                     } else{
-                        check = true
+                        check = board[i][indexFrom.second]!!.pieceColor == board[indexFrom.first][indexFrom.second]!!.pieceColor
+                        //check = true
                         break
                     }
                 }
