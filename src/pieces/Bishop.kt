@@ -49,7 +49,31 @@ class Bishop(posColumn: Int, posRow: Int, fieldColor: String, pieceColor: String
         }
     }
 
-    fun isMovePossible(column: Int, row: Int): Boolean{
+    fun isMovePossible(column: Int, row: Int, board: Array<Array<Pieces?>>, pieceColor: String): Boolean{
+
+        var fromRow = this.posColumn
+        val fromColumn = this.posRow
+
+        val toRow = column
+        val toColumn = row
+
+        if (fromRow > toRow){
+            for (i in fromRow downTo toRow){
+                fromRow--
+                if (fromRow >= toRow){
+
+                }
+            }
+        }
+
+        /*
+            fromRow = 7
+            fromColumn = 2
+
+            toRow = 5
+            toColumn = 4
+         */
+
         return false
     }
 }

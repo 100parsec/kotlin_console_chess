@@ -50,7 +50,54 @@ class Rook(posColumn: Int, posRow: Int, fieldColor: String, pieceColor: String) 
         }
     }
 
-    fun isMovePossible(row: Int, column: Int): Boolean{
+    fun isMovePossible(row: Int, column: Int, board: Array<Array<Pieces?>>, pieceColor: String): Boolean{
+        val fromColumn = this.posRow
+        val fromRow = this.posColumn
+
+        val toColumn = column
+        val toRow = row
+
+        if (fromColumn == toColumn && fromRow != toRow){
+            return true
+        }
+
+        if (fromColumn != toColumn && fromRow == toRow){
+            return true
+        }
+
         return false
+    }
+
+    fun makeMove(from: Rook, rook: Rook, to: Pieces, indexTo: Pair<Int, Int>, board: Array<Array<Pieces?>>){
+        rook.pieceColor = from.pieceColor
+
+        rook.fieldColor = targetColor(to)
+
+        when(to){
+            is CyanField -> rook.setNewBackground("cyan")
+            is GreyField -> rook.setNewBackground("white")
+            is Pawn -> rook.setNewBackground(to.fieldColor)
+            is Rook -> rook.setNewBackground(to.fieldColor)
+            is Knight -> rook.setNewBackground(to.fieldColor)
+            is Queen -> rook.setNewBackground(to.fieldColor)
+            is King -> rook.setNewBackground(to.fieldColor)
+        }
+
+
+        board[indexTo.first][indexTo.second] = rook
+    }
+
+    private fun targetColor(target: Pieces): String{
+
+        return when(target){
+            is Pawn -> target.fieldColor
+            is Rook -> target.fieldColor
+            is Knight -> target.fieldColor
+            is Bishop -> target.fieldColor
+            is Queen -> target.fieldColor
+            is King -> target.fieldColor
+            is CyanField -> "cyan"
+            else -> "white"
+        }
     }
 }

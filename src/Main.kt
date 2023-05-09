@@ -22,58 +22,36 @@ fun gameMenu() {
 
         var indexFrom = Pair<Int, Int>(0,0)
         var indexTo = Pair<Int, Int>(0,0)
-
         var move = false
-        while (!move) {
 
-            if (whoseMove == "white") {
-                println("Weiss ist am Zug.")
-                print("Welchen Zug wollen Sie machen?: ")
-                val input = readln()
+        while (!move){
 
-                var splittedInput = input.split(",")
-
-                indexFrom = splittedInput[0][1] - '0' - 1 to getSecondIndex(splittedInput[0][0])
-                indexTo = splittedInput[1][1] - '0' - 1 to getSecondIndex(splittedInput[1][0])
-                printBoard(makeMove(indexFrom, indexTo, board))
-
-            } else {
-                println("Schwarz ist am Zug.")
-                print("Welchen Zug wollen Sie machen?: ")
-                val input = readln()
-
-                var splittedInput = input.split(",")
-
-                indexFrom = splittedInput[0][1] - '0' - 1 to getSecondIndex(splittedInput[0][0])
-                indexTo = splittedInput[1][1] - '0' - 1 to getSecondIndex(splittedInput[1][0])
-                printBoard(makeMove(indexFrom, indexTo, board))
+            if (whoseMove == "white"){
+                println("Weiss ist am Zug")
+            } else if (whoseMove == "black"){
+                println("Schwarz ist am Zug")
             }
 
-            /*
+
             print("Welchen Zug wollen Sie machen?: ")
             val input = readln()
 
-            var splittedInput = input.split(",")
+            val splittedInput = input.split(",")
 
             indexFrom = splittedInput[0][1] - '0' - 1 to getSecondIndex(splittedInput[0][0])
             indexTo = splittedInput[1][1] - '0' - 1 to getSecondIndex(splittedInput[1][0])
+            move = whosMove(whoseMove, indexFrom)
 
-             */
-
-            move = whosMove(whoseMove,indexTo)
+            //TODO wenn der zug von z.b. weiss nicht möglich ist dann ist schwarz dran obwohl weiss die chance haben sollte eine richtige eingabe zu machen
         }
 
-
-
-        if (move){
-           // printBoard(makeMove(indexFrom, indexTo, board))
-            whoseMove = if (whoseMove == "white"){
-                "black"
-            } else{
-                "white"
-            }
+        if (whoseMove == "white"){
+            whoseMove = "black"
+        } else{
+            whoseMove = "white"
         }
 
+        printBoard(makeMove(indexFrom, indexTo, board))
     }
 }
 
@@ -150,8 +128,6 @@ fun makeMove(indexFrom: Pair<Int, Int>, indexTo: Pair<Int, Int>, board: Array<Ar
     var from = board[indexFrom.first][indexFrom.second]
     var to = board[indexTo.first][indexTo.second]
 
-
-
     var fieldColor = String()
 
     var pawn = Pawn(indexTo.first,indexTo.second,"", "")
@@ -165,11 +141,7 @@ fun makeMove(indexFrom: Pair<Int, Int>, indexTo: Pair<Int, Int>, board: Array<Ar
 
     if(from is Pawn){
 
-        val test = from.isThereAPiece(indexFrom, indexTo, board)
-
         fieldColor = from.fieldColor
-
-
 
         // check is set true if move is possible and there is no piece on the way
         check = from.isMovePossible(indexTo.first, indexTo.second, board, from.pieceColor) && !from.isThereAPiece(indexFrom, indexTo, board)
@@ -182,6 +154,12 @@ fun makeMove(indexFrom: Pair<Int, Int>, indexTo: Pair<Int, Int>, board: Array<Ar
 
 
     } else if (from is Bishop){
+
+        fieldColor = from.fieldColor
+
+        check = from.isMovePossible(indexTo.first, indexTo.second, board, from.pieceColor) && !from.isThereAPiece(indexFrom, indexTo, board)
+
+        /*
         bishop.pieceColor = from.pieceColor
         fieldColor = from.fieldColor
 
@@ -192,6 +170,8 @@ fun makeMove(indexFrom: Pair<Int, Int>, indexTo: Pair<Int, Int>, board: Array<Ar
             bishop.setNewBackground("white")
             board[indexTo.first][indexTo.second] = bishop
         }
+
+         */
 
     } else if (from is King){
         king.pieceColor = from.pieceColor
@@ -227,15 +207,31 @@ fun makeMove(indexFrom: Pair<Int, Int>, indexTo: Pair<Int, Int>, board: Array<Ar
             board[indexTo.first][indexTo.second] = queen
         }
     } else if (from is Rook){
-        rook.pieceColor = from.pieceColor
+
+        /*
         fieldColor = from.fieldColor
 
-        if (to is CyanField){
-            queen.setNewBackground("cyan")
-            board[indexTo.first][indexTo.second] = rook
+        // check is set true if move is possible and there is no piece on the way
+        check = from.isMovePossible(indexTo.first, indexTo.second, board, from.pieceColor) && !from.isThereAPiece(indexFrom, indexTo, board)
+
+        if (check){
+            to?.let { from.makeMove(from, pawn, it, indexTo, board) }!!
         } else{
-            queen.setNewBackground("white")
-            board[indexTo.first][indexTo.second] = rook
+            println("Dieser Zug ist nicht möglich")
+        }
+         */
+
+        fieldColor = from.fieldColor
+
+        //check = from.isMovePossible(indexTo.first, indexTo.second, board, from.pieceColor)
+        //check = from.isThereAPiece(indexFrom, indexTo, board)
+
+        check = from.isMovePossible(indexTo.first, indexTo.second, board, from.pieceColor) && !from.isThereAPiece(indexFrom, indexTo, board)
+
+        if (check){
+            to?.let { from.makeMove(from, rook, to, indexTo, board) }!!
+        } else{
+            println("Dieser Zug ist nicht möglich")
         }
 
         globalBoard = board
