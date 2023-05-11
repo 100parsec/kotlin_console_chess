@@ -2,6 +2,7 @@ import board.ChessBoard
 import fields.CyanField
 import fields.GreyField
 import pieces.*
+import java.lang.Exception
 
 var whoseMove = "white"
 var globalBoard: Array<Array<Pieces?>> = arrayOf(arrayOf(Pieces(0,0,"")))
@@ -35,7 +36,33 @@ fun gameMenu() {
                 println("Schwarz ist am Zug")
             }
 
+            var validInput = false
 
+            while (!validInput){
+                print("Welchen Zug wollen Sie machen?: ")
+                val input = readln()
+
+                try {
+                    val splittedInput = input.split(",")
+                    indexFrom = splittedInput[0][1] - '0' - 1 to getSecondIndex(splittedInput[0][0])
+                    indexTo = splittedInput[1][1] - '0' - 1 to getSecondIndex(splittedInput[1][0])
+
+                    if (indexFrom.first >= 0 && indexFrom.second >= 7 && indexTo.first >= 0 && indexTo.second <= 7){
+                        validInput = true
+                    } else{
+                        println("Die Koordinaten liegen außerhalb des Boards")
+                    }
+
+                }catch (e: Exception){
+                    println("Ihre Einfgabe hat das falsche Format")
+                    println("Beispiel Format: a7,a5")
+                }
+
+
+            }
+
+
+            /*
             print("Welchen Zug wollen Sie machen?: ")
             val input = readln()
 
@@ -43,6 +70,8 @@ fun gameMenu() {
 
             indexFrom = splittedInput[0][1] - '0' - 1 to getSecondIndex(splittedInput[0][0])
             indexTo = splittedInput[1][1] - '0' - 1 to getSecondIndex(splittedInput[1][0])
+             */
+
             move = whosMove(whoseMove, indexFrom)
 
             //TODO wenn der zug von z.b. weiss nicht möglich ist dann ist schwarz dran obwohl weiss die chance haben sollte eine richtige eingabe zu machen
@@ -56,6 +85,10 @@ fun gameMenu() {
 
         printBoard(makeMove(indexFrom, indexTo, board))
     }
+}
+
+fun isInputValid(){
+
 }
 
 /*
@@ -245,7 +278,7 @@ private fun getSecondIndex(c: Char): Int {
         'g' -> return 6
         'h' -> return 7
     }
-    return 0
+    return 8
 }
 
 /*
