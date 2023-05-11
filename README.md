@@ -15,8 +15,6 @@ in der Klasse Piece überarbeiten muss. die scheint auch noch recht fehlerhaft z
 ob von Startfeld hin zum Zielfeld eine Figur im Weg steht. Mir ist auch schon was Besseres eingefallen aber das schaffe ich
 zeitlich nicht bis zum Abgabetermin.
 
-Was auch noch nicht richtig geht ist, wenn man einen ungültigen Zug macht, bekommt man aktuell nicht die Chance einen gültigen Zug zu machen.
-
 
 
 
