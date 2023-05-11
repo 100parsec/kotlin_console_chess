@@ -89,18 +89,4 @@ class Rook(posColumn: Int, posRow: Int, fieldColor: String, pieceColor: String) 
 
         board[indexTo.first][indexTo.second] = rook
     }
-
-    private fun targetColor(target: Pieces): String{
-
-        return when(target){
-            is Pawn -> target.fieldColor
-            is Rook -> target.fieldColor
-            is Knight -> target.fieldColor
-            is Bishop -> target.fieldColor
-            is Queen -> target.fieldColor
-            is King -> target.fieldColor
-            is CyanField -> "cyan"
-            else -> "white"
-        }
-    }
 }

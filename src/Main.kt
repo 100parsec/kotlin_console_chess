@@ -47,7 +47,7 @@ fun gameMenu() {
                     indexFrom = splittedInput[0][1] - '0' - 1 to getSecondIndex(splittedInput[0][0])
                     indexTo = splittedInput[1][1] - '0' - 1 to getSecondIndex(splittedInput[1][0])
 
-                    if (indexFrom.first >= 0 && indexFrom.second >= 7 && indexTo.first >= 0 && indexTo.second <= 7){
+                    if (indexFrom.first >= 0 && indexFrom.second <= 7 && indexTo.first >= 0 && indexTo.second <= 7){
                         validInput = true
                     } else{
                         println("Die Koordinaten liegen außerhalb des Boards")
@@ -57,38 +57,24 @@ fun gameMenu() {
                     println("Ihre Einfgabe hat das falsche Format")
                     println("Beispiel Format: a7,a5")
                 }
-
-
             }
-
-
-            /*
-            print("Welchen Zug wollen Sie machen?: ")
-            val input = readln()
-
-            val splittedInput = input.split(",")
-
-            indexFrom = splittedInput[0][1] - '0' - 1 to getSecondIndex(splittedInput[0][0])
-            indexTo = splittedInput[1][1] - '0' - 1 to getSecondIndex(splittedInput[1][0])
-             */
 
             move = whosMove(whoseMove, indexFrom)
 
-            //TODO wenn der zug von z.b. weiss nicht möglich ist dann ist schwarz dran obwohl weiss die chance haben sollte eine richtige eingabe zu machen
         }
 
-        if (whoseMove == "white"){
-            whoseMove = "black"
-        } else{
-            whoseMove = "white"
-        }
+        val result = makeMove(indexFrom, indexTo, board)
 
-        printBoard(makeMove(indexFrom, indexTo, board))
+        if (result.second){
+            printBoard(result.first)
+
+            whoseMove = if (whoseMove == "white"){
+                "black"
+            } else{
+                "white"
+            }
+        }
     }
-}
-
-fun isInputValid(){
-
 }
 
 /*
@@ -153,11 +139,13 @@ fun printBoard(board: Array<Array<Pieces?>>){
 /*
 this function makes the movement. first it is checked which figure should be moved. then for checked if the move is possible and if the path to the target is free
  */
-fun makeMove(indexFrom: Pair<Int, Int>, indexTo: Pair<Int, Int>, board: Array<Array<Pieces?>>):  Array<Array<Pieces?>>{
+fun makeMove(indexFrom: Pair<Int, Int>, indexTo: Pair<Int, Int>, board: Array<Array<Pieces?>>): Pair< Array<Array<Pieces?>>,Boolean>{
 
     // get both positions from board
     var from = board[indexFrom.first][indexFrom.second]
     var to = board[indexTo.first][indexTo.second]
+
+    var result = true
 
     var fieldColor = String()
 
@@ -182,6 +170,7 @@ fun makeMove(indexFrom: Pair<Int, Int>, indexTo: Pair<Int, Int>, board: Array<Ar
             to?.let { from.makeMove(from, pawn, it, indexTo, board) }!!
         } else{
             println("Dieser Zug ist nicht möglich")
+            result = false
         }
 
 
@@ -195,6 +184,7 @@ fun makeMove(indexFrom: Pair<Int, Int>, indexTo: Pair<Int, Int>, board: Array<Ar
             to?.let { from.makeMove(from, bishop, it, indexTo, board) }!!
         } else{
             println("Dieser Zug ist nicht möglich")
+            result = false
         }
 
     } else if (from is King){
@@ -211,6 +201,7 @@ fun makeMove(indexFrom: Pair<Int, Int>, indexTo: Pair<Int, Int>, board: Array<Ar
             to?.let { from.makeMove(from, king, it, indexTo, board) }!!
         } else{
             println("Dieser Zug ist nicht möglich")
+            result = false
         }
 
     } else if (from is Knight){
@@ -222,6 +213,7 @@ fun makeMove(indexFrom: Pair<Int, Int>, indexTo: Pair<Int, Int>, board: Array<Ar
             to?.let { from.makeMove(from, knight, it, indexTo, board) }!!
         } else{
             println("Dieser Zug ist nicht möglich")
+            result = false
         }
 
     } else if (from is Queen){
@@ -234,6 +226,7 @@ fun makeMove(indexFrom: Pair<Int, Int>, indexTo: Pair<Int, Int>, board: Array<Ar
             to?.let { from.makeMove(from, queen, it, indexTo, board) }!!
         } else{
             println("Dieser Zug ist nicht möglich")
+            result = false
         }
 
     } else if (from is Rook){
@@ -246,6 +239,7 @@ fun makeMove(indexFrom: Pair<Int, Int>, indexTo: Pair<Int, Int>, board: Array<Ar
             to?.let { from.makeMove(from, rook, to, indexTo, board) }!!
         } else{
             println("Dieser Zug ist nicht möglich")
+            result = false
         }
 
         globalBoard = board
@@ -261,7 +255,7 @@ fun makeMove(indexFrom: Pair<Int, Int>, indexTo: Pair<Int, Int>, board: Array<Ar
     }
 
 
-    return board
+    return Pair(board,result)
 }
 
 /*

@@ -2,8 +2,10 @@
 Zurzeit ist das Programm nur für Mac geeignet. Auf Windows Systemen wird
 das Board nicht richtig dargestellt.
 
-Nach dem Starten des Spiels muss die Eingabe korrekt erfolgen. Einen Check diesbezüglich muss
-ich noch einbauen. Die korrekte Eingabe ist, wenn z.b. von E7 nach E6 gezogen werden soll: e7,e6
+Nach dem Starten des Spiels kann man seinen Zug eingeben. 
+Format ist: Startfeld,Zielfeld
+Beispiel: a7,a5
+
 
 Die meisten Figuren können ziehen aber nicht alle den regeln nach. Der Bauer hat schon regeln implementiert.
 Ist aber noch etwas Fehleranfällig. Gleiches gilt für den Turm und den König. Das Pferd kann ziehen hat aber noch keinerlei Zuglogik.
