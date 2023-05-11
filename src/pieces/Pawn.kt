@@ -91,13 +91,11 @@ class Pawn(posColumn: Int, posRow: Int, fieldColor: String, pieceColor: String) 
 
         return if (pieceColor == "white"){
             val check = this.posColumn - posColumn
-
-            check(6, check)
+            check(6, check) && dontStrikeVertically(targetPiece!!)
 
         } else{
             val check = posColumn - this.posColumn
-
-            check(1, check)
+            check(1, check) && dontStrikeVertically(targetPiece!!)
         }
 
     }
@@ -144,6 +142,13 @@ class Pawn(posColumn: Int, posRow: Int, fieldColor: String, pieceColor: String) 
             check == 1
         }
 
+    }
+
+    private fun dontStrikeVertically(targetPiece: Pieces): Boolean {
+        if (targetPiece!!.pieceColor == "white" || targetPiece!!.pieceColor == "black"){
+            return false
+        }
+        return true
     }
 
     private fun targetColor(target: Pieces): String{

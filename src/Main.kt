@@ -78,25 +78,6 @@ fun whosMove(whosMove: String, indexFrom:  Pair<Int, Int>): Boolean{
 }
 
 /*
-this function prints the logo to the console
- */
-fun printLogo(){
-    println("""
- _      _____ _____ _____   ______ _       _____   __   _____  _   _  _____ _____ _____ 
-| |    |  ___|_   _/  ___|  | ___ \ |     / _ \ \ / /  /  __ \| | | ||  ___/  ___/  ___|
-| |    | |__   | | \ `--.   | |_/ / |    / /_\ \ V /   | /  \/| |_| || |__ \ `--.\ `--. 
-| |    |  __|  | |  `--. \  |  __/| |    |  _  |\ /    | |    |  _  ||  __| `--. \`--. \
-| |____| |___  | | /\__/ /  | |   | |____| | | || |    | \__/\| | | || |___/\__/ /\__/ /
-\_____/\____/  \_/ \____/   \_|   \_____/\_| |_/\_/     \____/\_| |_/\____/\____/\____/
-    """.trimIndent())
-
-    print("Press Enter to Start")
-    readln()
-    println()
-    println()
-}
-
-/*
 this funktion initializes board
  */
 fun initializeBoard(): Array<Array<Pieces?>> {
@@ -250,6 +231,9 @@ fun makeMove(indexFrom: Pair<Int, Int>, indexTo: Pair<Int, Int>, board: Array<Ar
     return board
 }
 
+/*
+Gets the index of the column
+ */
 private fun getSecondIndex(c: Char): Int {
     when (c) {
         'a' -> return 0
@@ -262,4 +246,23 @@ private fun getSecondIndex(c: Char): Int {
         'h' -> return 7
     }
     return 0
+}
+
+/*
+this function prints the logo to the console
+ */
+fun printLogo(){
+    println("""
+ _      _____ _____ _____   ______ _       _____   __   _____  _   _  _____ _____ _____ 
+| |    |  ___|_   _/  ___|  | ___ \ |     / _ \ \ / /  /  __ \| | | ||  ___/  ___/  ___|
+| |    | |__   | | \ `--.   | |_/ / |    / /_\ \ V /   | /  \/| |_| || |__ \ `--.\ `--. 
+| |    |  __|  | |  `--. \  |  __/| |    |  _  |\ /    | |    |  _  ||  __| `--. \`--. \
+| |____| |___  | | /\__/ /  | |   | |____| | | || |    | \__/\| | | || |___/\__/ /\__/ /
+\_____/\____/  \_/ \____/   \_|   \_____/\_| |_/\_/     \____/\_| |_/\____/\____/\____/
+    """.trimIndent())
+
+    print("Press Enter to Start")
+    readln()
+    println()
+    println()
 }
