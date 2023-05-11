@@ -3,8 +3,15 @@ package pieces
 import fields.CyanField
 import fields.GreyField
 
+/*
+Parent class for all pieces. Holds methods to check is there a piece on the way to target
+ */
 open class Pieces(var posColumn: Int, var posRow: Int, var pieceColor: String) {
 
+
+    /*
+    checks if there is a piece on the way to target
+     */
     open fun isThereAPiece(indexFrom: Pair<Int, Int>, indexTo: Pair<Int, Int>, board: Array<Array<Pieces?>>): Boolean{
         var check = true
 
@@ -17,7 +24,6 @@ open class Pieces(var posColumn: Int, var posRow: Int, var pieceColor: String) {
                         check = false
                     } else{
                         check = board[i][indexFrom.second]!!.pieceColor == board[indexFrom.first][indexFrom.second]!!.pieceColor
-                        //check = true
                         break
                     }
                 }
@@ -70,13 +76,9 @@ open class Pieces(var posColumn: Int, var posRow: Int, var pieceColor: String) {
                     }
                 } else {
 
-                    //TODO check this is correct
                     if (indexFrom.first == indexTo.first){
                         if (indexFrom.second < indexTo.second){
                             for (i in indexFrom.second until indexTo.second){
-
-                                val field1 = board[indexFrom.first][0 + 1]
-
                                 if (board[indexFrom.first][i + 1] is GreyField){
                                     check = false
                                 } else if (board[indexFrom.first][i + 1] is CyanField){
@@ -106,6 +108,9 @@ open class Pieces(var posColumn: Int, var posRow: Int, var pieceColor: String) {
         return check
     }
 
+    /*
+    gets the color of target piece or field
+     */
     open fun targetColor(target: Pieces): String{
 
         return when(target){
@@ -120,10 +125,16 @@ open class Pieces(var posColumn: Int, var posRow: Int, var pieceColor: String) {
         }
     }
 
+    /*
+    Method to check if move is possible. will be overritten in all child classes
+     */
     open fun isMovePossible(row: Int, column: Int, board: Array<Array<Pieces?>>, pieceColor: String): Boolean{
         return true
     }
 
+    /*
+    checks if target is beatable
+     */
     open fun isTargetBeatable(from: Pieces, to: Pieces): Boolean{
 
         if (from.pieceColor != to.pieceColor)
