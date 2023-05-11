@@ -89,13 +89,24 @@ class Pawn(posColumn: Int, posRow: Int, fieldColor: String, pieceColor: String) 
             return false
         }
 
+        var dsv = true
         return if (pieceColor == "white"){
             val check = this.posColumn - posColumn
-            check(6, check) && dontStrikeVertically(targetPiece!!)
+            /*
+            if (first != second){
+                dsv = dontStrikeVertically(targetPiece!!) //TODO check vertikal strike
+            }
+             */
+            check(6, check)
 
         } else{
             val check = posColumn - this.posColumn
-            check(1, check) && dontStrikeVertically(targetPiece!!)
+            /*
+            if (first != second){
+                dsv = dontStrikeVertically(targetPiece!!) //TODO check vertikal strike
+            }
+             */
+            check(1, check)
         }
 
     }

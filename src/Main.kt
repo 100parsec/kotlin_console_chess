@@ -54,7 +54,7 @@ fun gameMenu() {
                     }
 
                 }catch (e: Exception){
-                    println("Ihre Einfgabe hat das falsche Format")
+                    println("Ihre Eingabe hat das falsche Format")
                     println("Beispiel Format: a7,a5")
                 }
             }
@@ -162,6 +162,9 @@ fun makeMove(indexFrom: Pair<Int, Int>, indexTo: Pair<Int, Int>, board: Array<Ar
     if(from is Pawn){
 
         fieldColor = from.fieldColor
+
+        val check1 = from.isMovePossible(indexTo.first, indexTo.second, board, from.pieceColor)
+        val check2 = from.isThereAPiece(indexFrom, indexTo, board)
 
         // check is set true if move is possible and there is no piece on the way
         check = from.isMovePossible(indexTo.first, indexTo.second, board, from.pieceColor) && !from.isThereAPiece(indexFrom, indexTo, board)
