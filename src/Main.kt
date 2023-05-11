@@ -44,8 +44,8 @@ fun gameMenu() {
 
                 try {
                     val splittedInput = input.split(",")
-                    indexFrom = splittedInput[0][1] - '0' - 1 to getSecondIndex(splittedInput[0][0])
-                    indexTo = splittedInput[1][1] - '0' - 1 to getSecondIndex(splittedInput[1][0])
+                    indexFrom = splittedInput[0][1] - '0' - 1 to getSecondIndex(splittedInput[0][0].lowercase())
+                    indexTo = splittedInput[1][1] - '0' - 1 to getSecondIndex(splittedInput[1][0].lowercase())
 
                     if (indexFrom.first >= 0 && indexFrom.second <= 7 && indexTo.first >= 0 && indexTo.second <= 7){
                         validInput = true
@@ -261,16 +261,16 @@ fun makeMove(indexFrom: Pair<Int, Int>, indexTo: Pair<Int, Int>, board: Array<Ar
 /*
 Gets the index of the column
  */
-private fun getSecondIndex(c: Char): Int {
+private fun getSecondIndex(c: String): Int {
     when (c) {
-        'a' -> return 0
-        'b' -> return 1
-        'c' -> return 2
-        'd' -> return 3
-        'e' -> return 4
-        'f' -> return 5
-        'g' -> return 6
-        'h' -> return 7
+        "a" -> return 0
+        "b" -> return 1
+        "c" -> return 2
+        "d" -> return 3
+        "e" -> return 4
+        "f" -> return 5
+        "g" -> return 6
+        "h" -> return 7
     }
     return 8
 }
