@@ -49,7 +49,7 @@ class Bishop(posColumn: Int, posRow: Int, fieldColor: String, pieceColor: String
         }
     }
 
-    fun isMovePossible(column: Int, row: Int, board: Array<Array<Pieces?>>, pieceColor: String): Boolean{
+    override fun isMovePossible(column: Int, row: Int, board: Array<Array<Pieces?>>, pieceColor: String): Boolean{
 
         var fromRow = this.posColumn
         val fromColumn = this.posRow

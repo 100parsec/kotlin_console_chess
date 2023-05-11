@@ -49,7 +49,7 @@ class Knight(posColumn: Int, posRow: Int, fieldColor: String, pieceColor: String
         }
     }
 
-    fun isMovePossible(posColumn: Int, posRow: Int, board: Array<Array<Pieces?>>, pieceColor: String): Boolean{
+    override fun isMovePossible(posColumn: Int, posRow: Int, board: Array<Array<Pieces?>>, pieceColor: String): Boolean{
         return true
     }
 

@@ -3,7 +3,7 @@ package pieces
 import fields.CyanField
 import fields.GreyField
 
-open class Pieces(var posColumn: Int, var posRow: Int,var pieceColor: String) {
+open class Pieces(var posColumn: Int, var posRow: Int, var pieceColor: String) {
 
     open fun isThereAPiece(indexFrom: Pair<Int, Int>, indexTo: Pair<Int, Int>, board: Array<Array<Pieces?>>): Boolean{
         var check = true
@@ -99,6 +99,10 @@ open class Pieces(var posColumn: Int, var posRow: Int,var pieceColor: String) {
         }
 
         return check
+    }
+
+    open fun isMovePossible(row: Int, column: Int, board: Array<Array<Pieces?>>, pieceColor: String): Boolean{
+        return true
     }
 
     open fun isTargetBeatable(from: Pieces, to: Pieces): Boolean{

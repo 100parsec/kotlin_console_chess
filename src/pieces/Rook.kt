@@ -4,12 +4,15 @@ import fields.CyanField
 import fields.GreyField
 import utils.Symbols
 
-
+/*
+represents the pawn and inherits from pieces
+The rook is initialized with piece color and field color,
+also the exact position on the board is kept
+ */
 class Rook(posColumn: Int, posRow: Int, fieldColor: String, pieceColor: String) : Pieces(posColumn, posRow, pieceColor) {
 
     var fieldWithSymbol = String()
     var name = String()
-    //var pieceColor = String()
     var fieldColor = String()
 
     init {
@@ -50,7 +53,7 @@ class Rook(posColumn: Int, posRow: Int, fieldColor: String, pieceColor: String) 
         }
     }
 
-    fun isMovePossible(row: Int, column: Int, board: Array<Array<Pieces?>>, pieceColor: String): Boolean{
+    override fun isMovePossible(row: Int, column: Int, board: Array<Array<Pieces?>>, pieceColor: String): Boolean{
         val fromColumn = this.posRow
         val fromRow = this.posColumn
 

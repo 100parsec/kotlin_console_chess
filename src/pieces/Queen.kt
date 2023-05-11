@@ -48,7 +48,7 @@ class Queen(posColumn: Int, posRow: Int, fieldColor: String, pieceColor: String)
         }
     }
 
-    fun isMovePossible(column: Int, row: Int, board: Array<Array<Pieces?>>, pieceColor: String): Boolean{
+    override fun isMovePossible(column: Int, row: Int, board: Array<Array<Pieces?>>, pieceColor: String): Boolean{
         return true
     }
 
