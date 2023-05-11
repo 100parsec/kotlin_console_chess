@@ -51,34 +51,44 @@ class King(posColumn: Int, posRow: Int, fieldColor: String, pieceColor: String) 
 
     fun isMovePossible(posColumn: Int, posRow: Int, board: Array<Array<Pieces?>>, pieceColor: String): Boolean{
 
-        val fromColumn = this.posRow
         val fromRow = this.posColumn
-
-        val toColumn = posColumn
-        val toRow = posRow
+        val fromColumn = this.posRow
 
 
-        //TODO funktioniert noch nicht richtig
-        if (fromColumn == toColumn){
-            if (fromRow - 1 == toRow || fromRow + 1 == toRow){
-                return true
-            }
-        } else if (fromRow == toColumn){
-            if (fromColumn - 1 == toColumn || fromColumn + 1 == toColumn){
-                return true
-            }
-        } else{
-            if (fromColumn - 1 == toColumn && fromRow - 1 == toRow || fromColumn + 1 == toColumn && fromRow - 1 == toRow){
+        val toColumn = posRow
+        val toRow = posColumn
 
-                return true
-            } else if(fromColumn - 1 == toColumn && fromRow - 1 == toRow ||
-                fromRow - 1 == toRow &&  fromColumn + 1 == toColumn||
-                fromColumn + 1 == toColumn && fromRow + 1 == toRow ||
-                fromColumn - 1 == toColumn && fromRow + 1  == toRow){
+        val rightFieldFirstIndex = fromRow
+        val rightFieldSecondIndex = fromColumn + 1
 
-                return true
-            }
+        if (fromRow - 1 == toRow && fromColumn == toColumn || fromRow + 1 == toRow && fromColumn == toColumn || fromRow - 1 == toRow && fromColumn + 1 == posColumn){
+            return true
         }
+
+        if (rightFieldFirstIndex == toRow && rightFieldSecondIndex == toColumn){
+            return true
+        }
+
+
+
+
+
+
+
+
+        val lowerRightFieldFirstIndex = fromRow + 1
+        val lowerRightFieldSecondIndex = fromColumn + 1
+
+
+        val lowerLeftFieldFirstIndex = fromRow + 1
+        val lowerLeftFieldColumnIndex = fromColumn - 1
+
+        val leftFieldFirstIndex = fromRow
+        val leftFieldSecondIndex = fromColumn - 1
+
+        val upperLeftFieldFirstIndex = fromRow - 1
+        val upperLeftFieldSecondIndex = fromColumn - 1
+
 
         return false
     }

@@ -48,8 +48,41 @@ class Queen(posColumn: Int, posRow: Int, fieldColor: String, pieceColor: String)
         }
     }
 
-    fun isMovePossible(column: Int, row: Int): Boolean{
-        return false
+    fun isMovePossible(column: Int, row: Int, board: Array<Array<Pieces?>>, pieceColor: String): Boolean{
+        return true
+    }
+
+    fun makeMove(from: Queen, queen: Queen, to: Pieces, indexTo: Pair<Int, Int>, board: Array<Array<Pieces?>>){
+        queen.pieceColor = from.pieceColor
+
+        queen.fieldColor = targetColor(to)
+
+        when(to){
+            is CyanField -> queen.setNewBackground("cyan")
+            is GreyField -> queen.setNewBackground("white")
+            is Pawn -> queen.setNewBackground(to.fieldColor)
+            is Rook -> queen.setNewBackground(to.fieldColor)
+            is Knight -> queen.setNewBackground(to.fieldColor)
+            is Queen -> queen.setNewBackground(to.fieldColor)
+            is King -> queen.setNewBackground(to.fieldColor)
+        }
+
+
+        board[indexTo.first][indexTo.second] = queen
+    }
+
+    private fun targetColor(target: Pieces): String{
+
+        return when(target){
+            is Pawn -> target.fieldColor
+            is Rook -> target.fieldColor
+            is Knight -> target.fieldColor
+            is Bishop -> target.fieldColor
+            is Queen -> target.fieldColor
+            is King -> target.fieldColor
+            is CyanField -> "cyan"
+            else -> "white"
+        }
     }
 
 }

@@ -76,4 +76,36 @@ class Bishop(posColumn: Int, posRow: Int, fieldColor: String, pieceColor: String
 
         return false
     }
+
+    fun makeMove(from: Bishop, bishop: Bishop, to: Pieces, indexTo: Pair<Int, Int>, board: Array<Array<Pieces?>>) {
+        bishop.pieceColor = from.pieceColor
+
+        bishop.fieldColor = targetColor(to)
+
+        when(to){
+            is CyanField -> bishop.setNewBackground("cyan")
+            is GreyField -> bishop.setNewBackground("white")
+            is Pawn -> bishop.setNewBackground(to.fieldColor)
+            is Rook -> bishop.setNewBackground(to.fieldColor)
+            is Knight -> bishop.setNewBackground(to.fieldColor)
+            is Queen -> bishop.setNewBackground(to.fieldColor)
+            is King -> bishop.setNewBackground(to.fieldColor)
+        }
+
+        board[indexTo.first][indexTo.second] = bishop
+    }
+
+    private fun targetColor(target: Pieces): String{
+
+        return when(target){
+            is Pawn -> target.fieldColor
+            is Rook -> target.fieldColor
+            is Knight -> target.fieldColor
+            is Bishop -> target.fieldColor
+            is Queen -> target.fieldColor
+            is King -> target.fieldColor
+            is CyanField -> "cyan"
+            else -> "white"
+        }
+    }
 }

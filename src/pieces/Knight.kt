@@ -49,7 +49,41 @@ class Knight(posColumn: Int, posRow: Int, fieldColor: String, pieceColor: String
         }
     }
 
-    fun isMovePossible(posColumn: Int, posRow: Int): Boolean{
-        return false
+    fun isMovePossible(posColumn: Int, posRow: Int, board: Array<Array<Pieces?>>, pieceColor: String): Boolean{
+        return true
+    }
+
+    fun makeMove(from: Knight, knight: Knight, to: Pieces, indexTo: Pair<Int, Int>, board: Array<Array<Pieces?>>) {
+        knight.pieceColor = from.pieceColor
+
+        knight.fieldColor = targetColor(to)
+
+        when(to){
+            is CyanField -> knight.setNewBackground("cyan")
+            is GreyField -> knight.setNewBackground("white")
+            is Pawn -> knight.setNewBackground(to.fieldColor)
+            is Rook -> knight.setNewBackground(to.fieldColor)
+            is Knight -> knight.setNewBackground(to.fieldColor)
+            is Queen -> knight.setNewBackground(to.fieldColor)
+            is King -> knight.setNewBackground(to.fieldColor)
+        }
+
+
+        board[indexTo.first][indexTo.second] = knight
+
+    }
+
+    private fun targetColor(target: Pieces): String{
+
+        return when(target){
+            is Pawn -> target.fieldColor
+            is Rook -> target.fieldColor
+            is Knight -> target.fieldColor
+            is Bishop -> target.fieldColor
+            is Queen -> target.fieldColor
+            is King -> target.fieldColor
+            is CyanField -> "cyan"
+            else -> "white"
+        }
     }
 }

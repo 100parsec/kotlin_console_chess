@@ -59,10 +59,6 @@ open class Pieces(var posColumn: Int, var posRow: Int,var pieceColor: String) {
             } else{
                 if (indexFrom.first > indexTo.first) {
 
-
-                    val first = indexFrom.first - 1
-                    val second = indexTo.first
-
                     for (i in indexFrom.first - 1 downTo indexTo.first - 1) {
                         if (board[i][firstIndexFrom] is CyanField || board[i][firstIndexFrom] is GreyField) {
                             check = false
@@ -73,7 +69,22 @@ open class Pieces(var posColumn: Int, var posRow: Int,var pieceColor: String) {
                         firstIndexFrom++
                     }
                 } else {
-                    for (i in indexFrom.first + 1 until indexTo.first) {
+
+                    //TODO check this is correct
+                    if (indexFrom.first == indexTo.first){
+                        if (indexFrom.second < indexTo.second){
+                            for (i in indexFrom.second..indexTo.second){
+                                if (board[firstIndexFrom][i] is CyanField || board[firstIndexFrom][i] is GreyField){
+                                    check = false
+                                }else{
+                                    check = true
+                                    break
+                                }
+                            }
+                        }
+                    }
+
+                    for (i in indexFrom.first + 1 .. indexTo.first) {
                         if (board[firstIndexFrom + 1][i] is CyanField || board[firstIndexFrom + 1][i] is GreyField) {
                             check = false
                         } else {
